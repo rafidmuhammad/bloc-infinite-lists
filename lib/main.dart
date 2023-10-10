@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_infinite_list/BlocObserver.dart';
+import 'package:flutter_infinite_list/bloc_observer.dart';
 import 'package:flutter_infinite_list/posts/bloc/post_bloc.dart';
 import 'package:flutter_infinite_list/posts/models/post.dart';
 import 'package:http/http.dart' as http;
@@ -99,7 +99,8 @@ class _PostsListState extends State<PostsList> {
   }
 
   bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
+    if (!_scrollController.hasClients)
+      return false; //NOTE: Checks whether scrolling activity exists
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
@@ -131,7 +132,7 @@ class PostListItem extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Material(
       child: ListTile(
-        leading: Text('${post.id}', style: textTheme.caption),
+        leading: Text('${post.id}', style: textTheme.bodySmall),
         title: Text(post.title),
         isThreeLine: true,
         subtitle: Text(post.body),
